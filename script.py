@@ -3,7 +3,7 @@ from pathlib import Path
 import arguments as arguments
 
 
-def computer_list():
+def computer_list(file: bool=False, folder: bool=False):
     """Liste tout les fichier est dossier a partir de la racine
 
     Yields:
@@ -11,7 +11,15 @@ def computer_list():
     """
 
     for element in Path('/').rglob("**"):
-        yield element
+        if file and element.is_file(): 
+            yield element
+        
+        elif folder and element.is_dir(): 
+            yield element
+            
+        else: 
+            yield element
+            
 
 def search(file: str, research: str) -> bool: 
     if isinstance(file, Path): 
