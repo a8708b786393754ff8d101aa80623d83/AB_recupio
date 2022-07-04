@@ -1,6 +1,6 @@
 #! /usr/local/bin/python3.10
 from pathlib import Path
-import projet_fini.AB_recupio.arguments as arguments
+import arguments as arguments
 
 
 def computer_list():
@@ -12,6 +12,13 @@ def computer_list():
 
     for element in Path('/').rglob("**"):
         yield element
+
+def search(file: str, research: str) -> bool: 
+    if isinstance(file, Path): 
+        file = str(file)
+    
+    return file.startswith(research) or file.endswith(research) or file == research or file in research
+
 
 
 args = arguments.args()
