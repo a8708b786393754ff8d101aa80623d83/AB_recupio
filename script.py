@@ -17,24 +17,26 @@ def computer_list(file: bool=False, folder: bool=False):
         elif folder and element.is_dir(): 
             yield element
             
-        else: 
+        elif not folder and not file: 
             yield element
             
 
-def search(file: str, research: str) -> bool: 
+def search(file: str|Path, research: str) -> bool: 
     if isinstance(file, Path): 
         file = str(file)
-    
+        
     return file.startswith(research) or file.endswith(research) or file == research or file in research
 
 
+if __name__ == '__main__': 
+    args = arguments.args()
 
-args = arguments.args()
-
-for element in computer_list():
-    if not args.folder and not args.file:
-        pass
-    elif Path(element).is_file() and args.file:
-        pass
-    elif Path(element).is_dir() and args.folder:
-        pass
+    if args.folder: 
+        for folder in computer_list(folder=True): 
+            if search(folder, args.folder): 
+                print(folder)
+            
+    elif args.file: 
+        for file in computer_list(file=True): 
+            if search(file, args.file): 
+                print(file)
