@@ -9,16 +9,22 @@ def computer_list(file: bool = False, folder: bool = False):
     Yields:
         Path: fichier ou dossier 
     """
+    
+    for element in Path('/').rglob("*"):
 
-    for element in Path('/').rglob("**"):
-        if file and element.is_file():
-            yield element
+        try: 
+            if file and element.is_file():
+                yield element
 
-        elif folder and element.is_dir():
-            yield element
+            elif folder and element.is_dir():
+                yield element
 
-        elif not folder and not file:
-            yield element
+            elif not folder and not file:
+                yield element
+        
+        except PermissionError: 
+            pass 
+        
 
 
 def search(file: str | Path, research: str) -> bool:
