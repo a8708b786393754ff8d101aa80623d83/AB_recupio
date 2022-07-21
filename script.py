@@ -1,5 +1,6 @@
 #! /usr/local/bin/python3.10
 from pathlib import Path
+
 import arguments as arguments
 
 
@@ -9,10 +10,9 @@ def computer_list(file: bool = False, folder: bool = False):
     Yields:
         Path: fichier ou dossier 
     """
-    
-    for element in Path('/').rglob("*"):
+    for element in Path(Path.cwd().root).rglob("*"):
 
-        try: 
+        try:
             if file and element.is_file():
                 yield element
 
@@ -21,10 +21,9 @@ def computer_list(file: bool = False, folder: bool = False):
 
             elif not folder and not file:
                 yield element
-        
-        except PermissionError: 
-            pass 
-        
+
+        except PermissionError:
+            pass
 
 
 def search(file: str | Path, research: str) -> bool:
