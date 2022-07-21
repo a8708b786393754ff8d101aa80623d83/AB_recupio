@@ -1,5 +1,4 @@
 #! /usr/local/bin/python3.10
-import os
 from pathlib import Path
 
 import arguments as arguments
