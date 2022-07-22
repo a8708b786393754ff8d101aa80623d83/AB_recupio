@@ -2,9 +2,8 @@
 from colorama import Fore, Back
 from pathlib import Path
 
-from matplotlib import cm
-
 import arguments as arguments
+
 
 
 def computer_list(file: bool = False, folder: bool = False):
@@ -37,20 +36,39 @@ def search(file: str | Path, research: str) -> bool:
 
 
 if __name__ == '__main__':
-    args = arguments.args()
-    cmpt = 0 
-
-    
-    if args.folder:
-        for folder in computer_list(folder=True):
-            if search(folder, args.folder):
-                cmpt += 1 
-                print(Fore.GREEN, folder, Fore.RESET)
+    print(Fore.RED, """
+          
         
-    elif args.file:
-        for file in computer_list(file=True):
-            if search(file, args.file):
-                cmpt += 1 
-                print(Fore.CYAN, file, Fore.RESET)
+         $$$$$$\  $$$$$$$\                                                            $$\           
+        $$  __$$\ $$  __$$\                                                           \__|          
+        $$ /  $$ |$$ |  $$ |         $$$$$$\   $$$$$$\   $$$$$$$\ $$\   $$\  $$$$$$\  $$\  $$$$$$\  
+        $$$$$$$$ |$$$$$$$\ |        $$  __$$\ $$  __$$\ $$  _____|$$ |  $$ |$$  __$$\ $$ |$$  __$$\ 
+        $$  __$$ |$$  __$$\         $$ |  \__|$$$$$$$$ |$$ /      $$ |  $$ |$$ /  $$ |$$ |$$ /  $$ |
+        $$ |  $$ |$$ |  $$ |        $$ |      $$   ____|$$ |      $$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |
+        $$ |  $$ |$$$$$$$  |        $$ |      \$$$$$$$\ \$$$$$$$\ \$$$$$$  |$$$$$$$  |$$ |\$$$$$$  |
+        \__|  \__|\_______/ $$$$$$\ \__|       \_______| \_______| \______/ $$  ____/ \__| \______/ 
+                            \______|                                        $$ |                    
+                                                                            $$ |                    
+                                                                            \__|                    
+          """, Fore.RESET)
+    args = arguments.args()
+    cmpt = {'file': 0, 'folder': 0} 
+
+    try: 
+        
+        if args.folder:
+            for folder in computer_list(folder=True):
+                if search(folder, args.folder):
+                    cmpt['folder'] += 1 
+                    print(Fore.YELLOW, folder, Fore.RESET)
+
+        if args.file:
+            for file in computer_list(file=True):
+                if search(file, args.file):
+                    cmpt['file'] += 1 
+                    print(Fore.CYAN, file, Fore.RESET)
+    
+    except FileNotFoundError: 
+        pass 
                 
-    print(Back.BLUE, Fore.WHITE, cmpt, Fore.RESET, Back.RESET)
+    print(Back.GREEN, Fore.MAGENTA,f"file: {cmpt['file']} folder: {cmpt['folder']}", Fore.RESET, Back.RESET)
