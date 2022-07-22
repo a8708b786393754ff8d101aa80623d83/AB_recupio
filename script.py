@@ -1,5 +1,8 @@
 #! /usr/local/bin/python3.10
+from colorama import Fore, Back
 from pathlib import Path
+
+from matplotlib import cm
 
 import arguments as arguments
 
@@ -35,13 +38,19 @@ def search(file: str | Path, research: str) -> bool:
 
 if __name__ == '__main__':
     args = arguments.args()
+    cmpt = 0 
 
+    
     if args.folder:
         for folder in computer_list(folder=True):
             if search(folder, args.folder):
-                print(folder)
-
+                cmpt += 1 
+                print(Fore.GREEN, folder, Fore.RESET)
+        
     elif args.file:
         for file in computer_list(file=True):
             if search(file, args.file):
-                print(file)
+                cmpt += 1 
+                print(Fore.CYAN, file, Fore.RESET)
+                
+    print(Back.BLUE, Fore.WHITE, cmpt, Fore.RESET, Back.RESET)
